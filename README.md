@@ -39,7 +39,19 @@ npm run dev
 npm run build
 ```
 
+### Migrate tables
+Run the following command if it is the first time you clone this project:
+```
+python3 manage.py migrate
+```
+
 ### Then run django local server
 ```
 python3 manage.py runserver
+```
+
+### Making migrations
+If ever for some reason you need to recreate migration run:
+```
+python3 manage.py makemigrations
 ```
