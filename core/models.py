@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.utils import timezone
 from django.db import models
-from django.contrib.auth.models.models import AbstractBaseUser, BaseUserManager
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from phonenumber_field.modelfields import PhoneNumberField
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
