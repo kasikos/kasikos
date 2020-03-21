@@ -102,3 +102,4 @@ class Shops(models.Model):
     zip_code = models.CharField(max_length=50)
     tel_no = models.CharField(max_length=15)
     email = models.CharField(max_length=200, null=True)
+    whatsapp_no = PhoneNumberField(null=False, blank=False)
