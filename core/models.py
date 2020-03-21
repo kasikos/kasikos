@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.utils import timezone
 from django.db import models
-from django.contrib.auth.models.models import AbstractBaseUser, BaseUserManager
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from phonenumber_field.modelfields import PhoneNumberField
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
@@ -93,3 +93,13 @@ class User(AbstractBaseUser):
 class UserProfile(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     profile_picture = models.ImageField(upload_to="profile_pictures")
+
+class Shops(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    shop_name = models.CharField(max_length=50)
+    street_name = models.CharField(max_length=50)
+    town = models.CharField(max_length=50)
+    zip_code = models.CharField(max_length=50)
+    tel_no = models.CharField(max_length=15)
+    email = models.CharField(max_length=200, null=True)
+    whatsapp_no = PhoneNumberField(null=False, blank=False)

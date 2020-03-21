@@ -1,16 +1,18 @@
 from django.contrib import admin
 from .models import User
+from .models import Shops
+from .models import UserProfile
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
-from .admin_forms import UserAdminCreationForm, userAdminChangeForm
+from .admin_forms import UserAdminCreationForm, UserAdminChangeForm
 
 from django.contrib.auth import get_user_model
 
-user = get_user_model()
+User = get_user_model()
 
 
 class UserAdmin(BaseUserAdmin):
     # The forms to change and add user objects
-    form = userAdminChangeForm
+    form = UserAdminChangeForm
     add_form = UserAdminCreationForm
 
     # The fields to be used in displaying the User model.
