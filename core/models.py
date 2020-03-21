@@ -94,3 +94,11 @@ class UserProfile(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     profile_picture = models.ImageField(upload_to="profile_pictures")
 
+class Shops(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    shop_name = models.CharField(max_length=50)
+    street_name = models.CharField(max_length=50)
+    town = models.CharField(max_length=50)
+    zip_code = models.CharField(max_length=50)
+    tel_no = models.CharField(max_length=15)
+    email = models.CharField(max_length=200, null=True)

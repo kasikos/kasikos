@@ -1,5 +1,9 @@
-from .models import User 
+from .models import User
 from .models import UserProfile
 from rest_framework import serializers
 
-# class UserSerializer(serializers.Serializer):
+
+class UserProfileSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = UserProfile
+        fields = ["id", "profile_picture"]
