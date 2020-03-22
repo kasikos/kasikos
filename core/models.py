@@ -69,7 +69,7 @@ class UserManager(BaseUserManager):
             is_active=True,
             is_staff=True,
             is_admin=True,
-            is_shop_owner=True,
+            is_shopowner=True,
             is_customer=True,
         )
         return user
