@@ -8,6 +8,12 @@ pylint = "*"
 
 [packages]
 django = "*"
+djangorestframework = "*"
+markdown = "*"
+django-filter = "*"
+django-phonenumber-field = "*"
+phonenumbers = "*"
+pillow = "*"
 
 [requires]
 python_version = "3.7"

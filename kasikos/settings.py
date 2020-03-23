@@ -37,9 +37,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
     'frontend',
+    
+    # Backend Modules
     'core',
+    'shops.apps.ShopsConfig',
+    
+    # Django Third Party Modules
     'rest_framework',
+    'phonenumber_field',
 ]
 
 MIDDLEWARE = [
@@ -69,6 +76,8 @@ TEMPLATES = [
         },
     },
 ]
+
+AUTH_USER_MODEL = 'core.User'
 
 WSGI_APPLICATION = 'kasikos.wsgi.application'
 
