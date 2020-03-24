@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     
     'frontend',
-    
+ 
     # Backend Modules
     'core',
     'shops.apps.ShopsConfig',

@@ -15,7 +15,6 @@ class UserManager(BaseUserManager):
         first_name,
         last_name,
         cellphone_no,
-        email=None,
         password=None,
         is_active=True,
         is_staff=False,
@@ -39,7 +38,6 @@ class UserManager(BaseUserManager):
             first_name=first_name,
             last_name=last_name,
             cellphone_no=cellphone_no,
-            email=self.normalize_email(email),
             password=password,
         )
         user_obj.set_password(password)
