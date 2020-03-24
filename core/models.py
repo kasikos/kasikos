@@ -25,14 +25,16 @@ class UserManager(BaseUserManager):
     ):
         if not cellphone_no:
             raise ValueError("User must have a cellphone number")
-        if not email:
-            raise ValueError("User must have an email address")
+    
         if not password:
             raise ValueError("User must have a password")
+
         if not first_name:
             raise ValueError("Name is required")
+
         if not last_name:
             raise ValueError("Surname is required")
+        
         user_obj = self.model(
             first_name=first_name,
             last_name=last_name,
@@ -50,21 +52,20 @@ class UserManager(BaseUserManager):
         return user_obj
 
     def create_staffuser(
-        self, first_name, last_name, cellphone_no, email, password=None
+        self, first_name, last_name, cellphone_no, password=None
     ):
         user = self.create_user(
-            first_name, last_name, cellphone_no, email, password=password, is_staff=True
+            first_name, last_name, cellphone_no, password=password, is_staff=True
         )
         return user
 
     def create_superuser(
-        self, first_name, last_name, cellphone_no, email, password=None
+        self, first_name, last_name, cellphone_no, password=None
     ):
         user = self.create_user(
             first_name,
             last_name,
             cellphone_no,
-            email=None,
             password=password,
             is_active=True,
             is_staff=True,
@@ -79,7 +80,6 @@ class UserManager(BaseUserManager):
         first_name,
         last_name,
         cellphone_no,
-        email=None,
         password=None,
         is_active=True,
         is_shopowner=True,
@@ -88,7 +88,6 @@ class UserManager(BaseUserManager):
             first_name,
             last_name,
             cellphone_no,
-            email,
             password,
             is_active,
             is_shopowner,
@@ -97,14 +96,14 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser):
-    email = models.EmailField(max_length=50, unique=True, blank=True)
+    email = models.EmailField(max_length=50, unique=True, null=True, blank=True)
     active = models.BooleanField(default=True)
     # staff = models.BooleanField(default=False)
     # admin = models.BooleanField(default=False)
 
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
-    cellphone_no = PhoneNumberField(null=False, blank=False, unique=True)
+    cellphone_no = PhoneNumberField(unique=True)
     preferred_name = models.CharField(max_length=25, blank=True, null=True)
 
     is_shopowner = models.BooleanField("is shop owner", default=False)
@@ -113,12 +112,12 @@ class User(AbstractBaseUser):
 
     USERNAME_FIELD = "cellphone_no"
     # The fields required when a user is created.
-    REQUIRED_FIELDS = ["first_name", "last_name", "cellphone_no"]
+    REQUIRED_FIELDS = ["first_name", "last_name"]
 
     objects = UserManager()
 
     def __str__(self):
-        return self.cellphone_no
+        return str(self.cellphone_no)
 
     def get_full_name(self):
         return f"{self.first_name} {self.last_name}"
