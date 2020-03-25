@@ -3,7 +3,7 @@
 ### Requirements
 - Python 3.6+
 - Pip3
-- Pipenv
+- Virtual Environment (Recommend: ```virtualenvwrapper```)
 - Node
 - Docker
 - Docker-compose
@@ -14,14 +14,20 @@
 git clone https://github.com/zwelisha/kasikos.git
 ```
 
-### 2. Install all required modules
+### 2. Create and Activate Virtual Environment
+```
+mkvirtualenv kasikos-dev
+
+workon kasikos-dev
+```
+
+### 3. Install all required modules
 First make sure you ```cd``` into ```kasikos``` directory, then run the following command:
 ```
-pipenv shell
+pip3 install -r requirements.txt
 ```
-This above command will also activate virtual environment for this project
 
-### 3. Install all JavaScript modules
+### 4. Install all JavaScript modules
 ```
 npm i
 ```
