@@ -154,3 +154,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 SUMMERNOTE_THEME = 'bs4'  # Show summernote with Bootstrap4
+
+django_heroku.settings(locals())
