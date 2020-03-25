@@ -26,7 +26,11 @@ SECRET_KEY = 'd21wq9$(*j5&aw&_8m_j))t6z-7nl%mq8kb^izwpo^j-2%7g!)'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '127.0.0.1',
+    'localhost',
+    'kasikos.herokuapp.com',
+]
 
 
 # Application definition
