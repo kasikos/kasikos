@@ -1,14 +1,17 @@
 from django.db import models
 from django.core.validators import RegexValidator
-from core.models import User
+from django.conf import settings
+from django.urls import reverse
 from phonenumber_field.modelfields import PhoneNumberField
+
+from rest_framework.reverse import reverse as api_reverse
 
 
 # Create your models here.
 class Shop(models.Model):
     shop_name = models.CharField("shop name", max_length=50)
     slug = models.SlugField(unique=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     street_name = models.CharField(max_length=50)
     town = models.CharField(max_length=50)
     zip_code = models.CharField(max_length=10)
@@ -21,6 +24,19 @@ class Shop(models.Model):
     reg_no = models.CharField(validators=[reg_no_regex], max_length=15, null=True, blank=True)
 
     logo = models.ImageField(upload_to='images/shop/logo/')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.shop_name
+
+    @property
+    def owner(self):
+        return self.user
+    
+    # def get_api_url(self):
+    #     return reverse("shops-api:shops", kwargs={'slug': self.slug})
+
+    def get_api_url(self):
+        return api_reverse("shops:shops", current_app=self.request.resolver_match.namespace)
+        # return api_reverse("shops:shops", kwargs={'slug': self.slug})

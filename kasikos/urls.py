@@ -24,7 +24,9 @@ urlpatterns = [
     path('summernote/', include('django_summernote.urls')),
 
     # API Endpoits
-    path('', include('shops.api.urls')),
+    path('api/', include([
+        path('shops/', include('shops.api.urls', namespace='shops-api')),
+    ])),
 
     # Frontend endpoint
     path('', include('frontend.urls')),
