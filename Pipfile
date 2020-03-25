@@ -15,6 +15,7 @@ django-phonenumber-field = "*"
 phonenumbers = "*"
 pillow = "*"
 django-summernote = "*"
+djangorestframework-jwt = "*"
 
 [requires]
 python_version = "3.7"

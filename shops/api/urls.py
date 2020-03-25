@@ -1,10 +1,8 @@
-from django.urls import include, path
-from rest_framework import routers
-from shops.api import views
+from django.urls import path
+from shops.api.views import ShopView, ShopAPIView
 
-router = routers.DefaultRouter()
-router.register(r'shops', views.ShopViewSet)
-
+app_name = 'shops'
 urlpatterns = [
-    path('', include(router.urls)),
+	path('', ShopAPIView.as_view(), name='shop-create'),
+	path('<slug:slug>/', ShopView.as_view(), name='shops'),
 ]
