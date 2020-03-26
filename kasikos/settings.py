@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     # Backend Modules
     'core',
     'shops.apps.ShopsConfig',
+    'menu.apps.MenuConfig',
     
     # Django Third Party Modules
     'rest_framework',
