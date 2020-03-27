@@ -10,4 +10,4 @@ class UserAdmin(admin.ModelAdmin):
     upper_case_name.short_description = 'Name'
 
 admin.site.register(User, UserAdmin)
-admin.site.register(UserProfile)
+admin.site.register(UserProfile, UserProfileAdmin)
