@@ -3,11 +3,20 @@ from .models import User, UserProfile
 
 
 class UserAdmin(admin.ModelAdmin):
-    list_display = ('upper_case_name', 'cellphone_no',)
+    list_display = (
+        "upper_case_name",
+        "cellphone_no",
+    )
 
     def upper_case_name(self, obj):
         return ("%s %s" % (obj.first_name, obj.last_name)).upper()
-    upper_case_name.short_description = 'Name'
+
+    upper_case_name.short_description = "Name"
+
+
+class UserProfileAdmin(admin.ModelAdmin):
+    list_display = ("user", "profile_picture", "email")
+
 
 admin.site.register(User, UserAdmin)
 admin.site.register(UserProfile, UserProfileAdmin)
