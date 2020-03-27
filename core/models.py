@@ -138,4 +138,3 @@ class UserProfile(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     profile_picture = models.ImageField(upload_to="profile_pictures")
     email = models.CharField(max_length=30, blank=True, null=True, unique=True)
-    cellphone_no = PhoneNumberField(null=False, blank=False, unique=True)
