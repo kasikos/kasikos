@@ -24,6 +24,4 @@ class ShopSerializer(serializers.ModelSerializer):
             "updated_at",
         ]
 
-        read_only_fields = ["slug", "created_at"]
-
     # def validate_shop_name(self, value):

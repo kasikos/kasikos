@@ -7,13 +7,8 @@ class IngredientSerializer(serializers.ModelSerializer):
         model = Ingredient
         fields = ["name", "slug"]
 
-        read_only_fields = ["slug"]
-
 
 class MenuSerializer(serializers.ModelSerializer):
-
-    # ingredients = IngredientSerializer(many=True, read_only=False)
-
     class Meta:
         model = Menu
         fields = [
@@ -27,6 +22,3 @@ class MenuSerializer(serializers.ModelSerializer):
             "created_at",
             "updated_at",
         ]
-
-        # extra_kwargs = {"ingredients": {"required": True}}
-        read_only_fields = ["slug", "created_at"]

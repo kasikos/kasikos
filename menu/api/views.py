@@ -42,3 +42,32 @@ class MenuView(generics.RetrieveUpdateDestroyAPIView):
 
     def get_queryset(self):
         return Menu.objects.all()
+
+
+class IngredientsAPIView(mixins.CreateModelMixin, generics.ListAPIView):
+    lookup_field = "slug"
+    serializer_class = IngredientSerializer
+
+    def get_queryset(self):
+        qs = Ingredient.objects.all()
+        query = self.request.GET.get("q")
+        if query is not None:
+            qs = qs.filter(
+                Q(name_icontains=query)
+            ).distinct()
+        return qs
+
+    # def perform_create(self, serializer):
+    #     serializer.save(name=self.request.name)
+
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
+        
+
+
+class IngredientView(generics.RetrieveUpdateDestroyAPIView):
+    lookup_field = "slug"
+    serializer_class = IngredientSerializer
+
+    def get_queryset(self):
+        return Ingredient.objects.all()
