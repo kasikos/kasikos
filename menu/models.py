@@ -16,7 +16,7 @@ class Menu(models.Model):
 	title = models.CharField(max_length=100)
 	slug = models.SlugField(unique=True)
 	shop = models.ForeignKey(Shop, on_delete=models.CASCADE)
-	ingredients = models.ManyToManyField(Ingredient, blank=True)
+	ingredients = models.ManyToManyField(Ingredient, related_name='menu', blank=True)
 	price = models.DecimalField(max_digits=5, decimal_places=2)
 	description = models.TextField(max_length=150)
 	image = models.ImageField(upload_to='images/shop/menu/')
