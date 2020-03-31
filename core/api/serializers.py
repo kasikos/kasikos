@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from core.models import User
+from core.models import UserProfile
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -13,3 +14,7 @@ class UserSerializer(serializers.ModelSerializer):
             'is_staff', 
             'is_superuser'
         ]
+class UserProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserProfile
+        fields = []
