@@ -6,7 +6,7 @@ app_name = 'core'
 urlpatterns = [
 	path('', UserAPIView.as_view(), name='user-create'),
 	
-    path('<int:id>/profile/', UserProfileView.as_view(), name='userprofiles'),
+    path('profile/<int:id>', UserProfileView.as_view(), name='userprofiles'),
     
     path('<int:id>/', UserView.as_view(), name='users'),
 

@@ -26,7 +26,7 @@ class UserAPIView(mixins.CreateModelMixin, generics.ListAPIView):
     	return qs
 
     def perform_create(self, serializer):
-    	serializer.save(user=self.request.user)
+    	serializer.save(id=self.request.id)
 
     def post(self, request, *args, **kwargs):
     	return self.create(request, *args, **kwargs)
@@ -38,12 +38,12 @@ class UserView(generics.RetrieveUpdateDestroyAPIView):
     """
     lookup_field 		= 'id'
     serializer_class	= UserSerializer
-    permission_classes	= [IsOwnerOrReadOnly]
+    # permission_classes	= [IsOwnerOrReadOnly]
 
     def get_queryset(self):
     	return User.objects.all()
 
-class UserAPIView(mixins.CreateModelMixin, generics.ListAPIView):
+class UserProfileAPIView(mixins.CreateModelMixin, generics.ListAPIView):
     """
     API endpoint that allows user profile to be listed, Created and Searched   
     """
@@ -58,7 +58,7 @@ class UserAPIView(mixins.CreateModelMixin, generics.ListAPIView):
     	return qs
 
     def perform_create(self, serializer):
-    	serializer.save(userProfile=self.request.userProfile)
+    	serializer.save(user=self.request.user)
 
     def post(self, request, *args, **kwargs):
     	return self.create(request, *args, **kwargs)
@@ -70,7 +70,7 @@ class UserProfileView(generics.RetrieveUpdateDestroyAPIView):
     """
     lookup_field 		= 'id'
     serializer_class	= UserProfileSerializer
-    permission_classes	= [IsOwnerOrReadOnly]
+    # permission_classes	= [IsOwnerOrReadOnly]
 
     def get_queryset(self):
     	return UserProfile.objects.all()

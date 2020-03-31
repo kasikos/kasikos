@@ -15,6 +15,7 @@ class UserSerializer(serializers.ModelSerializer):
             'is_staff', 
             'is_superuser'
         ]
+        read_only_fields = ['id', 'active']
 class UserProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserProfile
