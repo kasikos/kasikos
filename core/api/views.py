@@ -12,7 +12,7 @@ class UserAPIView(mixins.CreateModelMixin, generics.ListAPIView):
     """
     API endpoint that allows users to be listed, Created and Searched   
     """
-    lookup_field 		= 'slug'
+    lookup_field 		= 'id'
     serializer_class	= UserSerializer
 
     def get_queryset(self):
@@ -36,7 +36,7 @@ class UserView(generics.RetrieveUpdateDestroyAPIView):
     """
     API endpoint that allows user to be viewed, edited or deleted via user slug
     """
-    lookup_field 		= 'slug'
+    lookup_field 		= 'id'
     serializer_class	= UserSerializer
     permission_classes	= [IsOwnerOrReadOnly]
 
@@ -47,7 +47,7 @@ class UserAPIView(mixins.CreateModelMixin, generics.ListAPIView):
     """
     API endpoint that allows user profile to be listed, Created and Searched   
     """
-    lookup_field 		= 'slug'
+    lookup_field 		= 'id'
     serializer_class	= UserProfileSerializer
 
     def get_queryset(self):
@@ -68,7 +68,7 @@ class UserProfileView(generics.RetrieveUpdateDestroyAPIView):
     """
     API endpoint that allows user to be viewed, edited or deleted via user slug
     """
-    lookup_field 		= 'slug'
+    lookup_field 		= 'id'
     serializer_class	= UserProfileSerializer
     permission_classes	= [IsOwnerOrReadOnly]
 
