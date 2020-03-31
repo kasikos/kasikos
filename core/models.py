@@ -7,6 +7,8 @@ from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from django.core.mail import send_mail
 import secrets
+from django.urls import reverse
+from rest_framework.reverse import reverse
 
 
 class UserManager(BaseUserManager):
@@ -24,7 +26,7 @@ class UserManager(BaseUserManager):
     ):
         if not cellphone_no:
             raise ValueError("User must have a cellphone number")
-    
+
         if not password:
             raise ValueError("User must have a password")
 
@@ -33,7 +35,7 @@ class UserManager(BaseUserManager):
 
         if not last_name:
             raise ValueError("Surname is required")
-        
+
         user_obj = self.model(
             first_name=first_name,
             last_name=last_name,
@@ -49,17 +51,13 @@ class UserManager(BaseUserManager):
         user_obj.save(using=self.db)
         return user_obj
 
-    def create_staffuser(
-        self, first_name, last_name, cellphone_no, password=None
-    ):
+    def create_staffuser(self, first_name, last_name, cellphone_no, password=None):
         user = self.create_user(
             first_name, last_name, cellphone_no, password=password, is_staff=True
         )
         return user
 
-    def create_superuser(
-        self, first_name, last_name, cellphone_no, password=None
-    ):
+    def create_superuser(self, first_name, last_name, cellphone_no, password=None):
         user = self.create_user(
             first_name,
             last_name,
@@ -83,12 +81,7 @@ class UserManager(BaseUserManager):
         is_shopowner=True,
     ):
         user = self.create_user(
-            first_name,
-            last_name,
-            cellphone_no,
-            password,
-            is_active,
-            is_shopowner,
+            first_name, last_name, cellphone_no, password, is_active, is_shopowner,
         )
         return user
 
@@ -133,8 +126,19 @@ class User(AbstractBaseUser):
     def is_active(self):
         return self.active
 
+    def get_api_url(self):
+        return reverse("users:users", current_app=self.request.resolver_match.namespace)
+
 
 class UserProfile(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="profile"
+    )
     profile_picture = models.ImageField(upload_to="profile_pictures")
     email = models.CharField(max_length=30, blank=True, null=True, unique=True)
+
+    def get_api_url(self):
+        return reverse(
+            "user-profile:user-profile",
+            current_app=self.request.resolver_match.namespace,
+        )
