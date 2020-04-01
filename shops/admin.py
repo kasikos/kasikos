@@ -4,8 +4,11 @@ from .models import Shop
 
 
 class ShopAdmin(SummernoteModelAdmin):
-    summernote_fields = '__all__'
-    list_display = ('shop_name', 'user',)
+    summernote_fields = "__all__"
+    list_display = (
+        "shop_name",
+        "user",
+    )
     prepopulated_fields = {"slug": ("shop_name",)}
 
 

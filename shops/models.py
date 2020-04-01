@@ -20,10 +20,15 @@ class Shop(models.Model):
     tel_number = PhoneNumberField(null=True, blank=True)
     description = models.TextField(max_length=300)
 
-    reg_no_regex = RegexValidator(regex=r'^([\d]){1,4}\/(\d){1,6}\/(\d){1,2}$', message="Registration number must be entered in the format: '0000/000000/00'. Up to 14 characters and digits allowed!")
-    reg_no = models.CharField(validators=[reg_no_regex], max_length=15, null=True, blank=True)
+    reg_no_regex = RegexValidator(
+        regex=r"^([\d]){1,4}\/(\d){1,6}\/(\d){1,2}$",
+        message="Registration number must be entered in the format: '0000/000000/00'. Up to 14 characters and digits allowed!",
+    )
+    reg_no = models.CharField(
+        validators=[reg_no_regex], max_length=15, null=True, blank=True
+    )
 
-    logo = models.ImageField(upload_to='images/shop/logo/')
+    logo = models.ImageField(upload_to="images/shop/logo/")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=True)
 
@@ -33,10 +38,12 @@ class Shop(models.Model):
     @property
     def owner(self):
         return self.user
-    
+
     # def get_api_url(self):
     #     return reverse("shops-api:shops", kwargs={'slug': self.slug})
 
     def get_api_url(self):
-        return api_reverse("shops:shops", current_app=self.request.resolver_match.namespace)
+        return api_reverse(
+            "shops:shops", current_app=self.request.resolver_match.namespace
+        )
         # return api_reverse("shops:shops", kwargs={'slug': self.slug})
