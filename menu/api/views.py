@@ -57,9 +57,6 @@ class IngredientsAPIView(mixins.CreateModelMixin, generics.ListAPIView):
             ).distinct()
         return qs
 
-    # def perform_create(self, serializer):
-    #     serializer.save(name=self.request.name)
-
     def post(self, request, *args, **kwargs):
         return self.create(request, *args, **kwargs)
         

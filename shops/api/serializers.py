@@ -23,5 +23,3 @@ class ShopSerializer(serializers.ModelSerializer):
             "created_at",
             "updated_at",
         ]
-
-    # def validate_shop_name(self, value):
