@@ -42,14 +42,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
+
     'frontend',
- 
+
     # Backend Modules
     'core',
     'shops.apps.ShopsConfig',
     'menu.apps.MenuConfig',
-    
+    'orders.apps.OrdersConfig',
+
     # Django Third Party Modules
     'rest_framework',
     'phonenumber_field',

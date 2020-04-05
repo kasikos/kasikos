@@ -6,12 +6,13 @@ from phonenumber_field.modelfields import PhoneNumberField
 
 from rest_framework.reverse import reverse as api_reverse
 
+USER = settings.AUTH_USER_MODEL
 
 # Create your models here.
 class Shop(models.Model):
     shop_name = models.CharField("shop name", max_length=50)
     slug = models.SlugField(unique=True)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.ForeignKey(USER, on_delete=models.CASCADE)
     street_name = models.CharField(max_length=50)
     town = models.CharField(max_length=50)
     zip_code = models.CharField(max_length=10)

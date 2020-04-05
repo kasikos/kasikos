@@ -25,8 +25,9 @@ urlpatterns = [
 
     # API Endpoits
     path('api/', include([
-        path('shops/', include('shops.api.urls', namespace='shops-api')),
-        path('shop/menu/', include('menu.api.urls', namespace='menu-api')),
+        path('shops/', include('shops.api.urls', namespace='shops')),
+        path('shop/menu/', include('menu.api.urls', namespace='menu')),
+        path('orders/', include('orders.api.urls', namespace='orders')),
     ])),
 
     # Frontend endpoint

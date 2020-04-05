@@ -18,6 +18,7 @@ class Menu(models.Model):
 	shop = models.ForeignKey(Shop, on_delete=models.CASCADE)
 	ingredients = models.ManyToManyField(Ingredient, related_name='menu', blank=True)
 	price = models.DecimalField(max_digits=5, decimal_places=2)
+	discount_price = models.FloatField(blank=True, null=True)
 	description = models.TextField(max_length=150)
 	image = models.ImageField(upload_to='images/shop/menu/')
 	created_at = models.DateTimeField(auto_now=True)
