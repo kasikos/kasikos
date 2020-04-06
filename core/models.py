@@ -133,6 +133,6 @@ class UserProfile(models.Model):
     )
     profile_picture = models.ImageField(upload_to="profile_pictures")
     email = models.CharField(max_length=30, blank=True, null=True, unique=True)
-    slug = models.Sl
+    slug = models.SlugField(blank=True, unique=True)
 
     
