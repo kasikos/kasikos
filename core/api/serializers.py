@@ -6,7 +6,7 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = [
-            'id',
+            'slug'
             'active', 
             'first_name', 
             'last_name', 
@@ -19,4 +19,4 @@ class UserSerializer(serializers.ModelSerializer):
 class UserProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserProfile
-        fields = ['id','profile_picture','email']
+        fields = ['slug','profile_picture','email']

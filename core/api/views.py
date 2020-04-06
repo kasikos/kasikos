@@ -1,76 +1,18 @@
-from django.db.models import Q
-from rest_framework import generics, mixins
-
+from rest_framework import status
+from rest_framework.response import Response 
+from rest_framework.decorators import api_view
 from core.models import User
 from core.models import UserProfile
-from core.api.permissions import IsOwnerOrReadOnly
 from core.api.serializers import UserSerializer
 from core.api.serializers import UserProfileSerializer
 
+@api_view(['GET'])
+def api_userprofile_view(request, slug):
+    try:
+        user_profile = UserProfile.objects.get(slug=slug)
+    except UserProfile.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    if request.method == "GET":
+        serializer = UserProfileSerializer(user_profile)
+        return Response(serializer.data)
 
-class UserAPIView(mixins.CreateModelMixin, generics.ListAPIView):
-    """
-    API endpoint that allows users to be listed, Created and Searched   
-    """
-    lookup_field 		= 'id'
-    serializer_class	= UserSerializer
-
-    def get_queryset(self):
-    	qs = User.objects.all()
-    	query = self.request.GET.get("q")
-    	if query is not None:
-    		qs = qs.filter(
-    				Q(cellphone_no__icontains=query)|
-    				Q(first_name__icontains=query)
-    				).distinct()
-    	return qs
-
-    def perform_create(self, serializer):
-    	serializer.save(id=self.request.id)
-
-    def post(self, request, *args, **kwargs):
-    	return self.create(request, *args, **kwargs)
-
-
-class UserView(generics.RetrieveUpdateDestroyAPIView):
-    """
-    API endpoint that allows user to be viewed, edited or deleted via user slug
-    """
-    lookup_field 		= 'id'
-    serializer_class	= UserSerializer
-    # permission_classes	= [IsOwnerOrReadOnly]
-
-    def get_queryset(self):
-    	return User.objects.all()
-
-class UserProfileAPIView(mixins.CreateModelMixin, generics.ListAPIView):
-    """
-    API endpoint that allows user profile to be listed, Created and Searched   
-    """
-    lookup_field 		= 'id'
-    serializer_class	= UserProfileSerializer
-
-    def get_queryset(self):
-    	qs = UserProfile.objects.all()
-    	query = self.request.GET.get("q")
-    	if query is not None:
-    		qs = qs.filter(Q(email__icontains=query)).distinct()
-    	return qs
-
-    def perform_create(self, serializer):
-    	serializer.save(user=self.request.user)
-
-    def post(self, request, *args, **kwargs):
-    	return self.create(request, *args, **kwargs)
-
-
-class UserProfileView(generics.RetrieveUpdateDestroyAPIView):
-    """
-    API endpoint that allows user to be viewed, edited or deleted via user slug
-    """
-    lookup_field 		= 'id'
-    serializer_class	= UserProfileSerializer
-    # permission_classes	= [IsOwnerOrReadOnly]
-
-    def get_queryset(self):
-    	return UserProfile.objects.all()

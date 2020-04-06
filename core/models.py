@@ -6,9 +6,10 @@ from phonenumber_field.modelfields import PhoneNumberField
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from django.core.mail import send_mail
+from django.utils.text import slugify
+from django.dispatch import receiver
 import secrets
-from django.urls import reverse
-from rest_framework.reverse import reverse
+
 
 
 class UserManager(BaseUserManager):
@@ -126,19 +127,12 @@ class User(AbstractBaseUser):
     def is_active(self):
         return self.active
 
-    def get_api_url(self):
-        return reverse("users:users", current_app=self.request.resolver_match.namespace)
-
-
 class UserProfile(models.Model):
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="profile"
     )
     profile_picture = models.ImageField(upload_to="profile_pictures")
     email = models.CharField(max_length=30, blank=True, null=True, unique=True)
+    slug = models.Sl
 
-    def get_api_url(self):
-        return reverse(
-            "user-profile:user-profile",
-            current_app=self.request.resolver_match.namespace,
-        )
+    
