@@ -24,7 +24,7 @@ class UserManager(BaseUserManager):
     ):
         if not cellphone_no:
             raise ValueError("User must have a cellphone number")
-    
+
         if not password:
             raise ValueError("User must have a password")
 
@@ -33,7 +33,7 @@ class UserManager(BaseUserManager):
 
         if not last_name:
             raise ValueError("Surname is required")
-        
+
         user_obj = self.model(
             first_name=first_name,
             last_name=last_name,
@@ -115,13 +115,15 @@ class User(AbstractBaseUser):
     objects = UserManager()
 
     def __str__(self):
+        if first_name and last_name:
+            return f"{first_name} {last_name}"
         return str(self.cellphone_no)
 
     def get_full_name(self):
         return f"{self.first_name} {self.last_name}"
 
     def get_short_name(self):
-        return self.email
+        return self.prefarred_name
 
     def has_perm(self, perm, obj=None):
         return True
@@ -137,5 +139,3 @@ class User(AbstractBaseUser):
 class UserProfile(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     profile_picture = models.ImageField(upload_to="profile_pictures")
-    email = models.CharField(max_length=30, blank=True, null=True, unique=True)
-    cellphone_no = PhoneNumberField(null=False, blank=False, unique=True)
