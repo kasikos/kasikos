@@ -1,14 +1,28 @@
 from django.db.models import Q
 from rest_framework import generics, mixins
+from rest_framework import status
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
 
 from shops.models import Shop
 from shops.api.permissions import IsOwnerOrReadOnly
 from shops.api.serializers import ShopSerializer
 
 
+@api_view(['GET', ])
+def api_detail_shop_view(request, slug):
+    try:
+        shop = Shop.objects.get(slug=slug)
+    except Shop.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == "GET":
+        serializer = ShopSerializer(shop)
+        return Response(serializer.data)
+
 class ShopAPIView(mixins.CreateModelMixin, generics.ListAPIView):
     """
-    API endpoint that allows shops to be listed, Created and Serched   
+    API endpoint that allows shops to be listed, Created and Serched
     """
 
     lookup_field = "slug"
