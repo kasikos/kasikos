@@ -24,7 +24,8 @@ urlpatterns = [
     path('summernote/', include('django_summernote.urls')),
 
     # API Endpoits
-    path('api/', include([
+    path('api/v1/', include([
+        path('', include('core.api.urls', namespace='users')),
         path('shops/', include('shops.api.urls', namespace='shops-api')),
         path('shop/menu/', include('menu.api.urls', namespace='menu-api')),
     ])),
