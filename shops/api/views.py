@@ -2,13 +2,13 @@ from django.db.models import Q
 from rest_framework import generics, mixins
 
 from shops.models import Shop
-from shops.api.permissions import IsOwnerOrReadOnly
+# from shops.api.permissions import IsOwnerOrReadOnly
 from shops.api.serializers import ShopSerializer
 
 
 class ShopAPIView(mixins.CreateModelMixin, generics.ListAPIView):
     """
-    API endpoint that allows shops to be listed, Created and Serched   
+    API endpoint that allows shops to be listed, Created and Serched
     """
 
     lookup_field = "slug"
@@ -37,7 +37,7 @@ class ShopView(generics.RetrieveUpdateDestroyAPIView):
 
     lookup_field = "slug"
     serializer_class = ShopSerializer
-    permission_classes = [IsOwnerOrReadOnly]
+    # permission_classes = [IsOwnerOrReadOnly]
 
     def get_queryset(self):
         return Shop.objects.all()
